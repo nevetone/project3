@@ -4,23 +4,23 @@
 <div class="container-fluid">
 <div class="row">
 <div class="col-sm-12 h-25 main-h1">
-<h1>  Country Side DarkW  </h1>
+<h1 style="font-size:75px;">  CountrySide DarkW  </h1>
 </div>
 <div class="col-sm-12">
 <form style="padding:0 25%;" method="POST"> {% csrf_token %}
     <label class="sr-only" for="user-id">Id</label>
         <div class="input-group mb-2">
             <div class="input-group-prepend">
-                <div class="input-group-text">#</div>
+                <div class="input-group-text"><i class="fas fa-lock prefix grey-text"></i></div>
                 </div>
         <input type="password" class="form-control" id="user-id" placeholder="Twoje Id">
             </div>
         <div class="input-group mb-2">
             <div class="input-group-prepend">
-                <div class="input-group-text">></div>
+                <div class="input-group-text"><i class="fas fa-user prefix grey-text"></i></div>
                 </div>
         <label class="sr-only" for="user-login">Nazwa</label>
-        <input type="text" class="form-control" id="user-id" placeholder="Nickname">
+        <input type="text" class="form-control" id="user-login" placeholder="Nickname">
             </div>
         <div class="col-sm-auto" style="padding:0 25%">
             <label class="sr-only" for="user-submit">Zaloguj</label>
@@ -31,5 +31,9 @@
 </div>
 </div>
 </div>
+
+{% include 'includes/login-form.html' %}
+
+
 </div>
 {% endblock content %}

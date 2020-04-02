@@ -1,0 +1,43 @@
+<div class="modal fade" id="modalLoginForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Rejestracja</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+
+<form method="POST"> {% csrf_token %}
+    <label class="sr-only" for="user-id-register">Id</label>
+        <div class="input-group mb-2">
+            <div class="input-group-prepend">
+                <div class="input-group-text"><i class="fas fa-lock prefix grey-text"></i></div>
+                </div>
+        <input type="password" class="form-control" id="user-id-register" placeholder="Twoje Id">
+            </div>
+        <div class="input-group mb-2">
+            <div class="input-group-prepend">
+                <div class="input-group-text"><i class="fas fa-user prefix grey-text"></i></i></div>
+                </div>
+        <label class="sr-only" for="user-login-register">Nazwa</label>
+        <input type="text" class="form-control" id="user-login-register" placeholder="Nickname">
+            </div>
+        <div class="col-sm-auto">
+            <label class="sr-only" for="user-submit-register">Zaloguj</label>
+            <input type="submit" class="btn btn-dark main-submit btn-block" value="Zaloguj" id="user-submit-register" />
+        </div>
+        </div>
+</form>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<div class="text-center register-button">
+  <a href="" class="btn btn-dark btn-rounded mb-4" data-toggle="modal" data-target="#modalLoginForm">Zarejestruj</a>
+</div>
