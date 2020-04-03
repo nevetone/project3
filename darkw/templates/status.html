@@ -1,8 +1,15 @@
 {% extends 'extends/base.html' %}
 {% block content %}
 
+{% if user.is_authenticated %}
+{% include 'includes/navbar.html' %}
 
 
-
-
+{% else %}
+<div class="col-sm-12" style="color:white; padding:5% 15%;">
+<h3>Nie jesteś zalogowany</h3><br />
+<h3>Wróć na strone Logowania, aby się zalogować</h3>
+<a href="{% url 'index' %}" class="btn btn-secondary">Strona Logowania</a>
+</div>
+{% endif %}
 {% endblock content %}

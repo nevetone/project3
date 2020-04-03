@@ -10,24 +10,31 @@
       </div>
       <div class="modal-body mx-3">
 
-<form method="POST"> {% csrf_token %}
-    <label class="sr-only" for="user-id-register">Id</label>
-        <div class="input-group mb-2">
-            <div class="input-group-prepend">
-                <div class="input-group-text"><i class="fas fa-lock prefix grey-text"></i></div>
-                </div>
-        <input type="password" class="form-control" id="user-id-register" placeholder="Twoje Id">
-            </div>
+<form method="POST" action="{% url 'registration_view' %}"> {% csrf_token %}
         <div class="input-group mb-2">
             <div class="input-group-prepend">
                 <div class="input-group-text"><i class="fas fa-user prefix grey-text"></i></i></div>
                 </div>
         <label class="sr-only" for="user-login-register">Nazwa</label>
-        <input type="text" class="form-control" id="user-login-register" placeholder="Nickname">
+        <input name="username" type="text" class="form-control" id="user-login-register" placeholder="Nickname">
+            </div>
+    <label class="sr-only" for="user-id-register">Id</label>
+        <div class="input-group mb-2">
+            <div class="input-group-prepend">
+                <div class="input-group-text"><i class="fas fa-lock prefix grey-text"></i></div>
+                </div>
+        <input name="password1" type="password" class="form-control" id="user-id-register" placeholder="Twoje Id">
+            </div>
+    <label class="sr-only" for="user-id2-register">Id2</label>
+        <div class="input-group mb-2">
+            <div class="input-group-prepend">
+                <div class="input-group-text"><i class="fas fa-lock prefix grey-text"></i></div>
+                </div>
+        <input name="password2" type="password" class="form-control" id="user-id2-register" placeholder="Powórz Id">
             </div>
         <div class="col-sm-auto">
-            <label class="sr-only" for="user-submit-register">Zaloguj</label>
-            <input type="submit" class="btn btn-dark main-submit btn-block" value="Zaloguj" id="user-submit-register" />
+            <label class="sr-only" for="user-submit-register">Zarejestruj</label>
+            <input type="submit" class="btn btn-dark main-submit btn-block" value="Zarejestruj" id="user-submit-register" />
         </div>
         </div>
 </form>

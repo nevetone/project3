@@ -1,11 +1,33 @@
 {% extends 'extends/base.html' %}
 {% block content %}
+{% if user.is_authenticated %}
 <div class="content">
     <div class="container-fluid">
         <div class="row">
             <div class="col-sm-12 h-25 main-h1">
-                <h1 style="font-size:75px;">  CountrySide DarkW  </h1>
+            <h1 style="font-size:75px;">  CountrySide DarkW  </h1><br />
+            <h3>Jesteś zalogowany, przejdź do statusu</h3>
+            <a style="font-size:30px;" href="{% url 'status' %}" class="btn btn-block btn-secondary" >Status</a>
             </div>
+        </div>
+    </div>
+</div>
+{% else %}
+<div class="content">
+    <div class="container-fluid">
+    {% if messages %}
+    {% for message in messages %}
+        <div class="alert {% if is_error == True %}alert-danger{% else %}alert-success{% endif %} alert-dismissible fade show" style="text-align:center;" role="alert">
+        {{ message }}
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </div>
+    {% endfor %}
+    {% endif %}
+    <div class="row">
+        <div class="col-sm-12 h-25 main-h1">
+            <h1 style="font-size:75px;">  CountrySide DarkW  </h1>
+        </div>
     <div class="col-sm-12">
 {% include 'includes/login-form.html' %}
     </div>
@@ -13,4 +35,5 @@
 </div>
 {% include 'includes/register-form.html' %}
 </div>
+{% endif %}
 {% endblock content %}
