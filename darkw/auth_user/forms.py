@@ -54,3 +54,4 @@ class RegistrationForm(forms.ModelForm):
         if commit:
             user.save()
         return user
+        

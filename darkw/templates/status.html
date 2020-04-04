@@ -1,15 +1,22 @@
-{% extends 'extends/base.html' %}
+{% extends 'extends/base_logged.html' %}
 {% block content %}
 
-{% if user.is_authenticated %}
-{% include 'includes/navbar.html' %}
-
-
-{% else %}
-<div class="col-sm-12" style="color:white; padding:5% 15%;">
-<h3>Nie jesteś zalogowany</h3><br />
-<h3>Wróć na strone Logowania, aby się zalogować</h3>
-<a href="{% url 'index' %}" class="btn btn-secondary">Strona Logowania</a>
+<div class="container-fluid" style="color:white;">
+<br />
+<div class="row h-50" style="width:100vw;">
+<div class="col-sm-6 bg-dark">
+<h4>
+Witaj, {{ player.nickname }}<br />
+Twoje saldo to: {{ player.money }}<br />
+Twój szef to: {{ player.organization.boss }}<br />
+Saldo Organizacji to: {{ player.organization.money }}
+</h4>
 </div>
-{% endif %}
+<div class="col-sm-6 bg-dark">
+s
+
+</div>
+</div>
+</div>
+
 {% endblock content %}
