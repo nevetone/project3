@@ -1,4 +1,19 @@
 @import url('https://fonts.googleapis.com/css2?family=Bangers&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Righteous&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poiret+One&display=swap');
+
+.row{
+	overflow-x: hidden;
+}
+
+.content{
+	font-family: 'Poiret One', cursive;
+	color:white;
+}
+.col-content{
+	height:auto;
+	min-height: 100%;
+}
 
 body.main{
     background-color: #2b4162;
@@ -28,10 +43,26 @@ body.main{
     color:White;
 }
 
+
 @media(min-width:1000px){
 body.logged{
 	overflow:hidden;
-}}
+}
+.content{
+	color:white;
+	height:89%;
+}
+.col-content{
+	font-family: 'Poiret One', cursive;
+	box-sizing: border-box;
+	overflow: hidden;
+	position: absolute;
+	display: block;
+	min-height: 50%;
+	width: 100%;
+}
+}
+
 
 
 /* animacje */

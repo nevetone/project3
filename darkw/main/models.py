@@ -8,7 +8,8 @@ User = get_user_model()
 
 class Players(models.Model):
     nickname = models.OneToOneField(User, on_delete=models.CASCADE)
-    money = models.IntegerField()
+    money_bank = models.IntegerField(default=0)
+    money_portfel = models.IntegerField(default=0)
     organization_status = models.BooleanField(default=False)  
     organization = models.ForeignKey('Organizations', on_delete=models.CASCADE, blank=True, null=True)
     created = models.DateField(auto_now=False, auto_now_add=True)
@@ -25,5 +26,5 @@ class Organizations(models.Model):
     created = models.DateField(auto_now=False, auto_now_add=True)
 
     def __str__(self):
-        return str(self.organization_name) + ' | ' + str(self.boss)
+        return str(self.organization_name)
     
