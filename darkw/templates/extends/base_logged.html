@@ -10,7 +10,7 @@
 <link rel="stylesheet" href="{% static 'css/style.css' %}" type="text/css">
 <title>DW CountrySide</title>
 </head>
-<body>
+<body class="logged">
 {% if user.is_authenticated %}
 {% include 'includes/navbar.html' %}
 {% block content %}

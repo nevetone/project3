@@ -1,22 +1,28 @@
 {% extends 'extends/base_logged.html' %}
 {% block content %}
 
-<div class="container-fluid" style="color:white;">
-<br />
-<div class="row h-50" style="width:100vw;">
-<div class="col-sm-6 bg-dark">
+<div class="container-fluid bg-dark" style="color:white;">
+<div class="row" style="min-height:100vh;">
+
+
+
+</div>
+</div>
+
+{% endblock content %}
+
+
+
+
+
+
+
+
+
+{% comment %} 
 <h4>
 Witaj, {{ player.nickname }}<br />
 Twoje saldo to: {{ player.money }}<br />
 Twój szef to: {{ player.organization.boss }}<br />
 Saldo Organizacji to: {{ player.organization.money }}
-</h4>
-</div>
-<div class="col-sm-6 bg-dark">
-s
-
-</div>
-</div>
-</div>
-
-{% endblock content %}
+</h4> {% endcomment %}
