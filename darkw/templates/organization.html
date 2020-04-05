@@ -1,0 +1,22 @@
+{% extends 'extends/base_logged.html' %}
+{% include 'includes/navbar.html' %}
+{% block content %}
+
+<div class="container-fluid bg-dark w-100 content">
+    <div class="row" style="min-height:100%;">
+        <div class="col-sm-11 mx-auto shadow p-3">
+            <div class="row p-3 " style="min-height:100%;">
+
+            <h3> Organizacja: <span class="righteous" >{{ player.organization|capfirst }}</span> <h3>
+
+            </div>
+        </div>
+    </div>
+</div>
+<footer class="page-footer font-small bg-dark text-white" style="width:100vw;">
+    <div class="footer-copyright text-center py-3"><i class="far fa-copyright"></i> 2020 Copyright: <a href="/status/"> Xyz </a>
+    </div>
+</footer>
+
+
+{% endblock content %}
