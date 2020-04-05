@@ -1,5 +1,6 @@
 {% extends 'extends/base_logged.html' %}
 {% block content %}
+{% load static %}
 {% load humanize %}
 <div class="container-fluid bg-dark w-100 content">
     <div class="row" style="min-height:100%;">
@@ -7,9 +8,9 @@
             <div class="row" style="min-height:100%;">
             <div class="col-sm-6 ">
                 <div class="col-content">
-                    <h3>Witaj, {{ player.nickname }}</h3>
-                    <h4> <i class="fas fa-piggy-bank"></i> Twoje obecne saldo w banku: <span class="badge badge-pill badge-light">{{ player.money_bank|intcomma }}$</span> </h4>
-                    <h4> <i class="fas fa-dollar-sign"></i> Twoje obecne saldo w portfelu: <span class="badge badge-pill badge-light">{{ player.money_portfel|intcomma }}$</span> </h4>
+                    <h3>Witaj, {{ player.nickname|capfirst }}</h3>
+                    <h4> <i class="fas fa-piggy-bank"></i> Twoje obecne saldo w banku: <span class="badge badge-pill badge-light righteous">{{ player.money_bank|intcomma }}$</span> </h4>
+                    <h4> <i class="fas fa-dollar-sign"></i> Twoje obecne saldo w portfelu: <span class="badge badge-pill badge-light righteous">{{ player.money_portfel|intcomma }}$</span> </h4>
                 </div>
             </div>
             <div class="col-sm-6 ">
@@ -19,7 +20,7 @@
                         <i class="fas fa-building"></i>
                          Twoja Organizacja: 
                             <span class="badge badge-pill badge-light">
-                                {{ player.organization }}
+                                {{ player.organization|capfirst }}
                             </span>
                         {% else %}
                         <h4>
@@ -28,6 +29,14 @@
                         <button href="#" class="bnt btn-secondary rounded-pill border border-dark"> Wciśnij aby dołączyć </button>
                         </h4>
                         {% endif %}
+                        
+                        {% comment %} testy  {% endcomment %}
+
+                        {% for worker in player.organization.organizationworkers.workers.all %}
+                        <h4 class="righteous"> {{ worker.nickname|capfirst }} </h4>
+                        {% endfor %}
+
+                        <h4 class="text-left righteous"> <a href="#" class="btn btn-primary"> Przejdz do Organizacji </a> </h4>
                     </h3>
                 </div>
             </div>

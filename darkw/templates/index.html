@@ -1,11 +1,12 @@
 {% extends 'extends/base.html' %}
 {% block content %}
+{% load static %}
 {% if user.is_authenticated %}
 <div class="content">
     <div class="container-fluid">
         <div class="row">
             <div class="col-sm-12 h-25 main-h1">
-            <h1 style="font-size:75px;">  CountrySide DarkW  </h1><br />
+            <h1 style="font-size:75px;">  CountrySide DarkW </h1><br />
             <h3>Jesteś zalogowany, przejdź do statusu</h3>
             <a style="font-size:30px;" href="{% url 'status' %}" class="btn btn-block btn-secondary" >Status</a>
             </div>
@@ -26,6 +27,7 @@
     {% endif %}
     <div class="row">
         <div class="col-sm-12 h-25 main-h1">
+            <img src="{% static "favicon/favicon192.png" %}"/>
             <h1 style="font-size:75px;">  CountrySide DarkW  </h1>
         </div>
     <div class="col-sm-12">

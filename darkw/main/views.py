@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from .models import Players, Organizations
 from django.contrib.auth import get_user_model
+from organization.models import OrganizationWorkers
 # Create your views here.
 User = get_user_model()
 
