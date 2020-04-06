@@ -12,7 +12,12 @@ class Players(models.Model):
     money_portfel = models.IntegerField(default=0)
     organization_status = models.BooleanField(default=False)  
     organization = models.ForeignKey('Organizations', on_delete=models.CASCADE, blank=True, null=True)
+    organization_level = models.ForeignKey("organization.OrganizationRanks", on_delete=models.CASCADE, blank=True, null=True)
     created = models.DateField(auto_now=False, auto_now_add=True)
+    
+    class Meta: 
+        ordering = ['-organization_level']
+    
     
     def __str__(self):
         return str(self.nickname)
@@ -22,6 +27,7 @@ class Organizations(models.Model):
     boss = models.OneToOneField(Players, on_delete=models.CASCADE, blank=True, null=True)
     organization_name = models.CharField(max_length=50, unique=True)
     money = models.IntegerField()
+    ranks = models.ManyToManyField("organization.OrganizationRanks", related_name="Rangi")
     activated = models.BooleanField(default=False)
     created = models.DateField(auto_now=False, auto_now_add=True)
 

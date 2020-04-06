@@ -15,7 +15,7 @@ def index(request):
 
 def status(request):
     try:
-        player = Players(nickname = request.user , money = 0)
+        player = Players(nickname = request.user)
         player.save()
     except:
         pass

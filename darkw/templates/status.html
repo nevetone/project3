@@ -22,23 +22,17 @@
                             <span class="badge badge-pill badge-light">
                                 {{ player.organization|capfirst }}
                             </span>
-                        <h4> Szef: <span class="righteous">{{ player.organization.boss|capfirst }}</span> </h4>
-                        {% comment %} testy  {% endcomment %}
-                        <h4>Saldo organizacji: <span class="badge badge-pill badge-light righteous">{{ player.organization.money|intcomma }}$</span> </h4>
-                        {% for worker in player.organization.organizationworkers.workers.all %}
-                        <h4 class="righteous"> {{ worker.nickname|capfirst }} </h4>
-                        {% endfor %}
-                        {% comment %} koniec {% endcomment %}
-                        {% else %}
+                                <h4> Szef: <span class="righteous">{{ player.organization.boss|capfirst }}</span> </h4>
+                            {% if player.organization_level.visible_money == True %}
+                                <h4>Saldo organizacji: <span class="badge badge-pill badge-light righteous">{{ player.organization.money|intcomma }}$</span> </h4>
+                            {% endif %}
+                            {% else %}
                         <h4>
                         <i class="fas fa-building"></i>
                          Nie Należysz do organizacji<br />
-                        <button href="#" class="bnt btn-secondary rounded-pill border border-dark"> Wciśnij aby dołączyć </button>
+                        <button href="#" class="bnt btn-secondary rounded-pill border border-dark"> Zaproszenia do Organizacji </button>
                         </h4>
-
                         {% endif %}
-
-                        <h4 class="text-left righteous"> <a href="#" class="btn btn-primary"> Przejdz do Organizacji </a> </h4>
                     </h3>
                 </div>
             </div>
