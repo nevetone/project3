@@ -20,7 +20,7 @@ from django.urls import path, re_path
 from main.views import index, status
 from auth_user.views import logout_view, login_view, registration_view
 from organization.views import organization
-from profiles.views import profiles
+from profiles.views import profiles, tests
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -31,6 +31,7 @@ urlpatterns = [
     path('register/', registration_view, name="registration_view"),
     path('status/organization/', organization, name="organization"),
     path('status/profiles/', profiles, name="profiles"),
+    path('status/tests/', tests, name="tests"),
 ]
 
 if settings.DEBUG:
