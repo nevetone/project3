@@ -18,7 +18,7 @@
     <div class="container-fluid">
     {% if messages %}
     {% for message in messages %}
-        <div class="alert {% if is_error == True %}alert-danger{% else %}alert-success{% endif %} alert-dismissible fade show" style="text-align:center;" role="alert">
+        <div class="alert righteous {% if is_error == True %}alert-danger{% else %}alert-success{% endif %} alert-dismissible fade show" style="text-align:center;" role="alert">
         {{ message }}
         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
         <span aria-hidden="true">&times;</span>

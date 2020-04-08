@@ -1,12 +1,19 @@
 {% extends 'extends/base_logged.html' %}
 {% block content %}
 {% load static %}
-
+{% load humanize %}
 
 <div class="container-fluid bg-dark w-100 content">
     <div class="row" style="min-height:100%;">
         <div class="col-sm-11 mx-auto shadow p-3">
             <div class="row" style="min-height:100%;">
+                <div class="col-sm-6 ">
+                    <div class="col-content">
+                        <h3>Witaj, {{ player.nickname|capfirst }}</h3>
+                        <h4> <i class="fas fa-piggy-bank"></i> Twoje obecne saldo w banku: <span class="badge badge-pill badge-light righteous">{{ player.money_bank|intcomma }}$</span> </h4>
+                        <h4> <i class="fas fa-dollar-sign"></i> Twoje obecne saldo w portfelu: <span class="badge badge-pill badge-light righteous">{{ player.money_portfel|intcomma }}$</span> </h4>
+                </div>
+            </div>
                 <div class="col-sm-6 ">
                     <div class="col-content" style="border-top:2px solid white;">
                         <div class="p-3">
@@ -19,18 +26,31 @@
                         {{ category.item_category }}
                         </button>
                     </div>
-                            {% endfor %}
+                                {% endfor %}
+                        <div class="col-sm-12" >
+                            <table class="table table-dark">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Ilość</th>
+                                        <th scope="col">Nazwa</th>
+                                    </tr>
+                                </thead>
+                            <tbody>
                                 {% for category in items_category %}
                                     {% for item in player_items %}
                                         {% if item.item.item_category == category %}
-                        <div class="col-sm-12" >
-                                        {{ item.item_count }}
-                                        {{ item.item.item_name }}
-                                        {{ item.item.item_category }}
-                        </div>
+                                            {% if item.item_count > 0 %}
+                                            <tr>
+                                            <th scope="row">{{ item.item_count }}</th>
+                                            <td>{{ item.item.item_name }}</td>
+                                            </tr>
+                                                </div>
+                                            {% endif %}
                                         {% endif %}
                                     {% endfor %}
                                 {% endfor %}
+                            </tbody>
+                            </table>
                             {% else %}
                             <h4> Nie Posiadasz przedmiotów w magazynie </h4>
                             {% endif %}
@@ -39,10 +59,15 @@
                     </div>
                 </div>
             </div>
+            <div class="col-sm-6 ">
+                <div class="col-content" style="overflow:auto;">
+                    <h4> Twoje zlecenia: </h4>
+                </div>
+            </div>
         </div>
     </div>
 </div>
-
+</div>
 <footer class="page-footer font-small bg-dark text-white" style="width:100vw;">
     <div class="footer-copyright text-center py-3"><i class="far fa-copyright"></i> 2020 Copyright: <a href="/status/"> Xyz </a>
     </div>

@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'organization',
     'items',
     'profiles',
+    'orders',
 
 ]
 
