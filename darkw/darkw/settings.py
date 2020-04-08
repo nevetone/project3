@@ -43,6 +43,8 @@ INSTALLED_APPS = [
     'main',
     'auth_user',
     'organization',
+    'items',
+    'profiles',
 
 ]
 
