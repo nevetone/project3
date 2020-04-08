@@ -7,16 +7,16 @@
 
   <div class="collapse navbar-collapse" id="navbarColor02">
     <ul class="navbar-nav mr-auto">
-      <li class="nav-item active">
+      <li class="nav-item {% if request.get_full_path == "/status/" %}active border-bottom{% endif %}">
         <a class="nav-link" href="{% url 'status' %}">Główna</a>
       </li>
-      <li class="nav-item">
+      <li class="nav-item {% if request.get_full_path == "/status/profiles/" %}active border-bottom{% endif %}">
         <a class="nav-link" href="{% url 'profiles' %}">Profil</a>
       </li>
-      <li class="nav-item">
+      <li class="nav-item {% if request.get_full_path == "/status/organization/" %}active border-bottom{% endif %}">
         <a class="nav-link" href="{% url 'organization' %}">Organizacja</a>
       </li>
-      <li class="nav-item">
+      <li class="nav-item {% if request.get_full_path == "/status/orders/" %}active border-bottom{% endif %}">
         <a class="nav-link" href="#">Zlecenia</a>
       </li>
     </ul>

@@ -10,6 +10,7 @@ class Players(models.Model):
     nickname = models.OneToOneField(User, on_delete=models.CASCADE)
     money_bank = models.IntegerField(default=0)
     money_portfel = models.IntegerField(default=0)
+    phone = models.CharField(max_length=7, default=00-0000)
     organization_status = models.BooleanField(default=False)  
     organization = models.ForeignKey('Organizations', on_delete=models.CASCADE, blank=True, null=True)
     organization_level = models.ForeignKey("organization.OrganizationRanks", on_delete=models.CASCADE, blank=True, null=True)

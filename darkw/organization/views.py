@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from main.models import Players
-from items.models import ItemsCategory, OrganizationItems
-from organization.models import OrganizationCars
+from items.models import ItemsCategory
+from organization.models import OrganizationCars, OrganizationItems
 
 # Create your views here.
 def organization(request):

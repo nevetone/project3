@@ -19,6 +19,7 @@ class OrganizationRanks(models.Model):
     visible_chat = models.BooleanField(default=False)
     visible_cars = models.BooleanField(default=False)
     visible_magazine =models.BooleanField(default=False)
+    visible_phone = models.BooleanField(default=False)
     admin = models.BooleanField(default=False)
 
     def __str__(self):
@@ -41,3 +42,11 @@ class OrganizationCars(models.Model):
     
     def __str__(self):
         return str(self.organization) + " " + str(self.car)
+    
+class OrganizationItems(models.Model):
+    organization = models.ForeignKey("main.Organizations", on_delete=models.CASCADE, blank=True, null=True)
+    item = models.ForeignKey("items.Items", on_delete=models.CASCADE, blank=True, null=True)
+    item_count = models.IntegerField(default=1)
+    
+    def __str__(self):
+        return str(self.organization) + " " + str(self.item)

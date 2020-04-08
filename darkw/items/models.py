@@ -25,14 +25,6 @@ class PlayerItems(models.Model):
     def __str__(self):
         return str(self.player) + " " + str(self.item)
     
-class OrganizationItems(models.Model):
-    organization = models.ForeignKey("main.Organizations", on_delete=models.CASCADE, blank=True, null=True)
-    item = models.ForeignKey("Items", on_delete=models.CASCADE, blank=True, null=True)
-    item_count = models.IntegerField(default=1)
-    
-    def __str__(self):
-        return str(self.organization) + " " + str(self.item)
-
 
 class CarsCategory(models.Model):
     car_category = models.CharField(max_length=50, blank=True, null=True)
@@ -41,9 +33,11 @@ class CarsCategory(models.Model):
         return str(self.car_category)
 
 class Cars(models.Model):
+    owner = models.ForeignKey("main.Players", on_delete=models.CASCADE, null=True, blank=True)
     car_category = models.ForeignKey(CarsCategory, on_delete=models.CASCADE)
     car_name = models.CharField(max_length=50)
+    car_id = models.CharField(max_length=9, default="ABC 12345")
     
     def __str__(self):
-        return str(self.car_category) +' | '+ str(self.car_name)
+        return str(self.car_category) +' | '+ str(self.car_name) + ' - ' + str(self.owner)
     
