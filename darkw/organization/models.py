@@ -34,4 +34,10 @@ class Organization(models.Model):
     
     
 
+class OrganizationCars(models.Model):
+    organization = models.ForeignKey("main.Organizations", on_delete=models.CASCADE, blank=True, null=True)
+    car = models.ForeignKey("items.Cars", on_delete=models.CASCADE, blank=True, null=True)
+    cars_count = models.IntegerField(default=1)
     
+    def __str__(self):
+        return str(self.organization) + " " + str(self.car)
