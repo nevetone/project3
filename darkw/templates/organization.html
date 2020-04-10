@@ -7,7 +7,7 @@
             <div class="row p-3 " style="min-height:100%;">
                 {% if player.organization_status == False %}
                 <div class="col-sm-12">
-                    <h3> Organizacja: <span class="righteous" > Nie Posiadasz </h3>
+                    <span class="righteous" > <h3> Organizacja:  Nie Posiadasz </h3>
                     {% if player.invited == True %}
                     <h4> Zaproszenia: </h4>
                         <div class="badge badge-pill border p-3">
@@ -27,10 +27,11 @@
                                 </span></h3>
                             </form>
                         </div>
+                        </div>
                     {% else %}
                     <h5> Poczekaj aż Cię ktoś zaprosi </h5>
-                    {% endif %}
                 </div>
+                {% endif %}
             {% else %}
                 <div class="col-sm-6">
                     <div class="col-content">
@@ -45,8 +46,9 @@
                                         <button class="btn btn-dark righteous border-bottom" data-toggle="modal" data-target="#invite"> Zaproś </button>
                                         <button class="btn btn-dark righteous border-bottom"> Rangi </button>
                                         <button class="btn btn-dark righteous border-bottom"> Zarządzanie </button>
-                                {% endif %}
+                                
                                     </div>
+                                {% endif %}
                     </div>
                 </div>
                 <div class="col-sm-6" style="overflow-y:auto; overflow-x:hidden;">

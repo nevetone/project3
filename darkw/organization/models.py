@@ -29,7 +29,6 @@ class OrganizationRanks(models.Model):
 class Organization(models.Model):
     organization = models.ForeignKey("main.Organizations", related_name="Organization" , on_delete=models.CASCADE)
     ranks = models.ManyToManyField("organization.OrganizationRanks", related_name="Ranks")
-    default_rank = models.ForeignKey("organization.OrganizationRanks", related_name="default_rank", on_delete=models.CASCADE, null=True, blank=True)
     
     def __str__(self):
         return str(self.organization)

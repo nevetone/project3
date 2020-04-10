@@ -32,7 +32,8 @@ class Organizations(models.Model):
     ranks = models.ManyToManyField("organization.OrganizationRanks", related_name="Rangi", blank=True, null=True )
     activated = models.BooleanField(default=False)
     created = models.DateField(auto_now=False, auto_now_add=True)
-
+    default_rank = models.ForeignKey("organization.OrganizationRanks", related_name="default_rank", on_delete=models.CASCADE, null=True, blank=True)
+    
     def __str__(self):
         return str(self.organization_name)
 

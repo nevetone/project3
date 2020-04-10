@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponseRedirect
 from main.models import Players
 from items.models import ItemsCategory
-from organization.models import OrganizationCars, OrganizationItems, Invites
+from organization.models import OrganizationCars, OrganizationItems, Invites, Organization
 from .forms import InviteForm, AcceptForm
 
 
@@ -79,17 +79,26 @@ def organization(request):
         accept = None
     
     
-    
     try:
         if invited_from is not None:
             if accept == "False":
                 invite = Invites.objects.get(players = player)
-                print(invite)
-            else:
-                invite = None
+                player.invited = False
+                player.save()
+                invite.delete()
+            elif accept == "True":
+                invite = Invites.objects.get(players = player)
+                player.organization = invited_from
+                player.organization_status = True
+                player.organization.organizationworkers.workers.add(player)
+                player.organization_level = player.organization.default_rank
+                player.invited = False
+                player.save()
+                invite.delete()
     except:
         invite = None
-        
+    
+    
     items_category = ItemsCategory.objects.all()
 
     context = {'player':player,'form':form, 'invited_from':invited_from, 'players':players, 'items_category':items_category, 'organization_items':items,'cars':cars,}
