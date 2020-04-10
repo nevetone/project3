@@ -14,12 +14,13 @@ def index(request):
     return render(request, template, context)
 
 def status(request):
+
     try:
-        player = Players(nickname = request.user)
+        player = Players(nickname = request.user, money_bank=1, money_portfel=1, phone='22-2222')
         player.save()
     except:
         pass
-    
+
     try:
         player = Players.objects.get(nickname=request.user)
     except:

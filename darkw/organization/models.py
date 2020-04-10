@@ -21,17 +21,14 @@ class OrganizationRanks(models.Model):
     visible_magazine =models.BooleanField(default=False)
     visible_phone = models.BooleanField(default=False)
     admin = models.BooleanField(default=False)
-
+    rank_power = models.IntegerField(default=0)
+    
+    class Meta:
+        ordering=['-rank_power']
+    
     def __str__(self):
         return str(self.organization) + " | " + str(self.rank_name)
     
-    
-class Organization(models.Model):
-    organization = models.ForeignKey("main.Organizations", related_name="Organization" , on_delete=models.CASCADE)
-    ranks = models.ManyToManyField("organization.OrganizationRanks", related_name="Ranks")
-    
-    def __str__(self):
-        return str(self.organization)
     
     
 
@@ -53,7 +50,7 @@ class OrganizationItems(models.Model):
     
 class Invites(models.Model):
     organization = models.ForeignKey("main.Organizations", on_delete=models.CASCADE)
-    players = models.ForeignKey("main.Players", on_delete=models.CASCADE)
+    players = models.OneToOneField("main.Players", on_delete=models.CASCADE)
     active = models.BooleanField(default=True)
     
     def __str__(self):

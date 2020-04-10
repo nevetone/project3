@@ -1,0 +1,42 @@
+<div class="modal fade bd-example-modal-lg" id="ranks" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Zarządzanie Rangami</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+
+        
+        
+        
+            <div class="list-group">
+            <h4> Twoje Obencne Rangi </h4>
+            {% for ranks in player.organization.ranks.all %}
+            <span class="list-group-item list-group-item-action">
+                <span>
+                {{ ranks.rank_name }}
+                </span>
+                <span class="float-right">
+                    <button class="btn btn-dark">
+                        <i class="fas fa-cog"></i>
+                    </button>
+                    <button class="btn btn-dark">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </span>
+            </span>
+            {% endfor %}
+            </div>
+
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Wyjdź</button>
+        <button type="button" class="btn btn-primary">Zapisz</button>
+      </div>
+    </div>
+  </div>
+</div>

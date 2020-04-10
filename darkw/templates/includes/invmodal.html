@@ -14,7 +14,9 @@
                 <select class="form-control" name="invited" id="id_invited">
                     {% for one in players %}
                         {% if one.organization != player.organization and one.organization_status != True %}
-                <option value="{{ one.nickname }}">{{ one.nickname|capfirst }}</option>
+                          {% if one.invited == False %}
+                          <option value="{{ one.nickname }}">{{ one.nickname|capfirst }}</option>
+                          {% endif %}
                         {% endif %}
                     {% endfor %}
                 </select>

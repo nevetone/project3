@@ -12,6 +12,7 @@
                         <h3>Witaj, <i class="fas fa-id-card"></i> {{ player.nickname|capfirst }}</h3>
                         <h4> <i class="fas fa-piggy-bank"></i> Twoje obecne saldo w banku: <span class="badge badge-pill badge-light righteous">{{ player.money_bank|intcomma }}$</span> </h4>
                         <h4> <i class="fas fa-dollar-sign"></i> Twoje obecne saldo w portfelu: <span class="badge badge-pill badge-light righteous">{{ player.money_portfel|intcomma }}$</span> </h4>
+                        <h4> <i class="fas fa-mobile-alt"></i> Twój Numer: <span class="badge badge-pill badge-light righteous">{{ player.phone }}</span> </h4>
                             {% if player.organization_status == True %}
                             <h4>
                             <i class="fas fa-building"></i> Twoja Organizacja: 

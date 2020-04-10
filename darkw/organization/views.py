@@ -1,11 +1,12 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponseRedirect
 from main.models import Players
+from django.contrib.auth import get_user_model
 from items.models import ItemsCategory
-from organization.models import OrganizationCars, OrganizationItems, Invites, Organization
+from organization.models import OrganizationCars, OrganizationItems, Invites
 from .forms import InviteForm, AcceptForm
 
-
+User = get_user_model()
 # Create your views here.
 def organization(request):
     
@@ -54,6 +55,16 @@ def organization(request):
         form = InviteForm(request.POST)
         if form.is_valid():
             invited = form.cleaned_data['invited']
+            try:
+                Users = User.objects.filter(username = invited)
+                for us in Users:
+                    inv = Players.objects.get(nickname = us)
+                    inv.invited = True
+                    send = Invites(organization = player.organization, players=inv, active = True )
+                    send.save()
+                    inv.save()
+            except:
+                pass
             
     else:
         form = InviteForm()
