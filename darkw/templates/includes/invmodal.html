@@ -1,0 +1,30 @@
+<div class="modal fade" id="invite" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content" style="position:absolute; top:1%;" >
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+        <form method="POST" action="{% url 'organization' %}" > {% csrf_token %}
+            <div class="modal-body">
+            <div class="form-group">
+                <label for="player">Kogo chcesz zaprosić?:</label>
+                <select class="form-control" name="invited" id="id_invited">
+                    {% for one in players %}
+                        {% if one.organization != player.organization and one.organization_status != True %}
+                <option value="{{ one.nickname }}">{{ one.nickname|capfirst }}</option>
+                        {% endif %}
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Zamknij</button>
+        <input type="submit" class="btn btn-primary" value="Zaproś" />
+      </div>
+      </form>
+    </div>
+  </div>
+</div>

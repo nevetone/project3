@@ -15,8 +15,9 @@ class Players(models.Model):
     organization = models.ForeignKey('Organizations', on_delete=models.CASCADE, blank=True, null=True)
     organization_level = models.ForeignKey("organization.OrganizationRanks", on_delete=models.CASCADE, blank=True, null=True)
     created = models.DateField(auto_now=False, auto_now_add=True)
+    invited = models.BooleanField(default=False)
     
-    class Meta: 
+    class Meta:
         ordering = ['-organization_level']
     
     
@@ -28,7 +29,7 @@ class Organizations(models.Model):
     boss = models.OneToOneField(Players, on_delete=models.CASCADE, blank=True, null=True)
     organization_name = models.CharField(max_length=50, unique=True)
     money = models.IntegerField()
-    ranks = models.ManyToManyField("organization.OrganizationRanks", related_name="Rangi")
+    ranks = models.ManyToManyField("organization.OrganizationRanks", related_name="Rangi", blank=True, null=True )
     activated = models.BooleanField(default=False)
     created = models.DateField(auto_now=False, auto_now_add=True)
 

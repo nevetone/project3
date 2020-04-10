@@ -7,10 +7,29 @@
             <div class="row p-3 " style="min-height:100%;">
                 {% if player.organization_status == False %}
                 <div class="col-sm-12">
-                    <h3> Organizacja: <span class="righteous" > Nie Posiadasz <h3>
-                    <h4> Poczekaj aż Cię ktoś zaprosi </h4>
-
+                    <h3> Organizacja: <span class="righteous" > Nie Posiadasz </h3>
+                    {% if player.invited == True %}
                     <h4> Zaproszenia: </h4>
+                        <div class="badge badge-pill border p-3">
+                            <form action="{% url 'organization' %}">
+                                <span><h3>
+                                    Organizacja: 
+                                <span class="righteous">
+                                    {{ invited_from }}
+                                </span>
+                                    zaprasza Cię do swojej firmy
+                                    <button type="submit" class="btn btn-dark" name="accept" value="True" style="font-size:30px;padding:0;">
+                                        <i class="fas fa-check text-success"></i>
+                                    </button>
+                                    <button type="submit" class="btn btn-dark" name="accept" value="False" style="font-size:30px;padding:0;">
+                                        <i class="fas fa-times text-danger"></i>
+                                    </button>
+                                </span></h3>
+                            </form>
+                        </div>
+                    {% else %}
+                    <h5> Poczekaj aż Cię ktoś zaprosi </h5>
+                    {% endif %}
                 </div>
             {% else %}
                 <div class="col-sm-6">
@@ -23,7 +42,7 @@
                                 {% if player.organization_level.admin == True %}
                                     <div style="position:absolute; bottom:0;">
                                     <h6> Zarządzanie Organizacją: </h6>
-                                        <button class="btn btn-dark righteous border-bottom"> Zaproś </button>
+                                        <button class="btn btn-dark righteous border-bottom" data-toggle="modal" data-target="#invite"> Zaproś </button>
                                         <button class="btn btn-dark righteous border-bottom"> Rangi </button>
                                         <button class="btn btn-dark righteous border-bottom"> Zarządzanie </button>
                                 {% endif %}
@@ -125,5 +144,6 @@
     </div>
 </footer>
 
+{% include 'includes/invmodal.html' %}
 
 {% endblock content %}

@@ -29,6 +29,7 @@ class OrganizationRanks(models.Model):
 class Organization(models.Model):
     organization = models.ForeignKey("main.Organizations", related_name="Organization" , on_delete=models.CASCADE)
     ranks = models.ManyToManyField("organization.OrganizationRanks", related_name="Ranks")
+    default_rank = models.ForeignKey("organization.OrganizationRanks", related_name="default_rank", on_delete=models.CASCADE, null=True, blank=True)
     
     def __str__(self):
         return str(self.organization)
@@ -50,3 +51,12 @@ class OrganizationItems(models.Model):
     
     def __str__(self):
         return str(self.organization) + " " + str(self.item)
+    
+class Invites(models.Model):
+    organization = models.ForeignKey("main.Organizations", on_delete=models.CASCADE)
+    players = models.ForeignKey("main.Players", on_delete=models.CASCADE)
+    active = models.BooleanField(default=True)
+    
+    def __str__(self):
+        return str(self.players) + " invited by: " + str(self.organization)
+    
