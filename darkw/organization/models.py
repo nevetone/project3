@@ -1,5 +1,6 @@
 from django.db import models
 from main.models import Players, Organizations
+from django.core.validators import MaxValueValidator, MinValueValidator
 # Create your models here.
 
 class OrganizationWorkers(models.Model):
@@ -21,7 +22,7 @@ class OrganizationRanks(models.Model):
     visible_magazine =models.BooleanField(default=False)
     visible_phone = models.BooleanField(default=False)
     admin = models.BooleanField(default=False)
-    rank_power = models.IntegerField(default=0)
+    rank_power = models.PositiveSmallIntegerField(default=1, validators=[MaxValueValidator(100), MinValueValidator(1)])
     
     class Meta:
         ordering=['-rank_power']

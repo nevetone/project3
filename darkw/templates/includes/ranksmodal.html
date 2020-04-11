@@ -9,33 +9,74 @@
       </div>
       <div class="modal-body">
 
-        
-        
-        
-            <div class="list-group">
+            <h4> Dodaj Range: </h4>
+              <form method="POST" action="{% url 'organization' %}">{% csrf_token %}
+              <input type='text' placeholder="Nazwa Rangi" class="form-control" />
+
+              <h5> Uprawnienia do Pokazania: </h5>
+              <div class="col-12">
+              <input class="form-check-input" type="checkbox" name="visible_money" value="" id="visible_money">
+              <label class="form-check-label" for="visible_money">
+              Pieniędzy firmowych
+              </label><br />
+              <input class="form-check-input" type="checkbox" name="visible_ranks" value="" id="visible_ranks">
+              <label class="form-check-label" for="visible_ranks">
+              Rang innych Pracowników
+              </label><br />
+              <input class="form-check-input" type="checkbox" name="visible_chat" value="" id="visible_chat">
+              <label class="form-check-label" for="visible_chat">
+              Chatu Organizacji
+              </label><br />
+              <input class="form-check-input" type="checkbox" name="visible_cars" value="" id="visible_cars">
+              <label class="form-check-label" for="visible_cars">
+              Samochodów firmowych
+              </label><br />
+              <input class="form-check-input" type="checkbox" name="visible_magazine" value="" id="visible_magazine">
+              <label class="form-check-label" for="visible_magazine">
+              Magazynu
+              </label><br />
+              <input class="form-check-input" type="checkbox" name="visible_phone" value="" id="visible_phone">
+              <label class="form-check-label" for="visible_phone">
+              Telefonów innych Pracowników
+              </label><br />
+              </div>
+              <div class="form-group row" style="padding-left:1%;">
+              <label class="col-form-label" for="rank_power"> Siła rangi: </label>
+              <div class="col-sm-2">
+              <input type="number" max="100" min="1" class="form-control" name="rank_power" id="rank_power" />
+              </div>
+              </div>
+              <div class="col-sm-12">
+              <h6> * wpisz od 1 do 100 </h6>
+              <h6> ** 90+ daje uprawnienia administracyjne </h6>
+              </div>
+              <input type="submit" class="btn btn-dark" value="Dodaj" />
+              </form>
+            <div class="list-group border-top border-dark">
             <h4> Twoje Obencne Rangi </h4>
-            {% for ranks in player.organization.ranks.all %}
-            <span class="list-group-item list-group-item-action">
-                <span>
-                {{ ranks.rank_name }}
-                </span>
-                <span class="float-right">
-                    <button class="btn btn-dark">
-                        <i class="fas fa-cog"></i>
-                    </button>
-                    <button class="btn btn-dark">
-                        <i class="fas fa-times"></i>
-                    </button>
-                </span>
-            </span>
-            {% endfor %}
+            <form action="{% url 'organization' %}">
+              {% for ranks in player.organization.ranks.all %}
+              <span class="list-group-item list-group-item-action">
+                  <span>
+                  {{ ranks.rank_name }}
+                  </span>
+                  <span class="float-right">
+                      {% if ranks.rank_power >= 100 %}
+                      {% else %}
+                      <button class="btn btn-dark" type="submit" name="del" value="{{ ranks.rank_name }}">
+                          <i class="fas fa-times"></i>
+                      </button>
+                      {% endif %}
+                  </span>
+              </span>
+              {% endfor %}
+            </form>
             </div>
 
 
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Wyjdź</button>
-        <button type="button" class="btn btn-primary">Zapisz</button>
       </div>
     </div>
   </div>

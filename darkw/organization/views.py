@@ -110,6 +110,30 @@ def organization(request):
         invite = None
     
     
+    try:
+        rank_del = request.GET.get('del')
+        if player.organization_level.rank_power >= 90:
+            if rank_del is not None:
+                for k in player.organization.ranks.all():
+                    if k.rank_name == rank_del:
+                        if k.rank_power >= 100:
+                            pass
+                        else:
+                            try:
+                                player_with_ranks = Players.objects.filter(organization_level = k)
+                                for i in player_with_ranks:
+                                    i.organization_level = player.organization.default_rank
+                                    i.save()
+                            except:
+                                pass
+                            k.delete()
+                    else:
+                        pass
+            else:
+                pass
+    except:
+        pass
+    
     items_category = ItemsCategory.objects.all()
 
     context = {'player':player,'form':form, 'invited_from':invited_from, 'players':players, 'items_category':items_category, 'organization_items':items,'cars':cars,}
