@@ -6,16 +6,49 @@
         <div class="col-sm-11 mx-auto shadow p-3">
             <div class="row p-3 " style="min-height:100%;">
                 {% if player.organization_level.rank_power >= 90 %}
-
-
-
-
-
-
-
-
-
-
+                    <div class="col-sm-6" style="overflow-y:auto; overflow-x:hidden;">
+                        <div class="col-content" style="overflow-x:hidden;">
+                            <span><h3> Pracownicy: </h3><h6> *Uwaga, usuwanie nie wymaga potwierdzenia </h6> </span>
+                            <table class="table text-light">
+                                <tbody>
+                                    <form action="{% url 'management' %}">
+                                {% for worker in player.organization.organizationworkers.workers.all %}
+                                    <tr>
+                                        {% if player.organization_level.visible_ranks == True %}
+                                            <td class="righteous">
+                                                {{ worker.organization_level.rank_name }}
+                                            </td>
+                                            {% endif %}
+                                                <th scope="row" class="righteous">
+                                                    {{ worker.nickname|capfirst }}
+                                                </th>
+                                        {% if player.organization_level.visible_phone == True %}
+                                            <td>
+                                                <i class="fas fa-mobile-alt"></i>
+                                                {{ worker.phone }}
+                                            </td>
+                                        {% endif %}
+                                        <td>
+                                            <button class="btn btn-dark border border-light text-warning p-1 float-right" id="edit" style="margin-right:5%;">
+                                                <i class="fas fa-cogs"></i> Edytuj
+                                            </button>
+                                            {% if worker.organization_level.rank_power >= 100 %}
+                                            {% else %}
+                                                {% if player.organization_level.rank_power > worker.organization_level.rank_power %}
+                                                <button class="btn btn-dark text-danger border border-danger p-1 float-right" name="del_worker" id="id_{{ worker }}" value="{{ worker }}" style="margin-right:5%;">
+                                                    <i class="fas fa-times"></i> Wyrzuć
+                                                </button>
+                                                {% else %}
+                                                {% endif %}
+                                            {% endif %}
+                                        </td>
+                                {% endfor %}
+                                    </tr>
+                                    </form>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
                 {% else %}
                 <div class="p-3">
                     <h5> Nie masz dostępu do tego panelu</h5>

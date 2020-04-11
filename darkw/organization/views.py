@@ -181,5 +181,27 @@ def management(request):
     except:
         player = None
     
+    
+    if player.organization_level.rank_power >= 90:
+        del_player = request.GET.get('del_worker')
+    else:
+        del_player = None
+        
+    try:
+        if del_player is not None:
+            for y in player.organization.organizationworkers.workers.all():
+                if player.organization_level.rank_power > y.organization_level.rank_power:
+                    if y.nickname.username == del_player:
+                        y.organization = None
+                        y.organization_level = None
+                        y.organization_status = False
+                        player.organization.organizationworkers.workers.remove(y)
+                        y.save()
+                        player.save()
+                    else:
+                        pass
+    except:
+        pass
+    
     context ={'player':player,}
     return render(request, template, context)
