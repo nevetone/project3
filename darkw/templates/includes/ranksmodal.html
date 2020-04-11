@@ -8,50 +8,54 @@
         </button>
       </div>
       <div class="modal-body">
-
-            <h4> Dodaj Range: </h4>
-              <form method="POST" action="{% url 'organization' %}">{% csrf_token %}
-              <input type='text' placeholder="Nazwa Rangi" class="form-control" />
-
-              <h5> Uprawnienia do Pokazania: </h5>
-              <div class="col-12">
-              <input class="form-check-input" type="checkbox" name="visible_money" value="" id="visible_money">
-              <label class="form-check-label" for="visible_money">
-              Pieniędzy firmowych
-              </label><br />
-              <input class="form-check-input" type="checkbox" name="visible_ranks" value="" id="visible_ranks">
-              <label class="form-check-label" for="visible_ranks">
-              Rang innych Pracowników
-              </label><br />
-              <input class="form-check-input" type="checkbox" name="visible_chat" value="" id="visible_chat">
-              <label class="form-check-label" for="visible_chat">
-              Chatu Organizacji
-              </label><br />
-              <input class="form-check-input" type="checkbox" name="visible_cars" value="" id="visible_cars">
-              <label class="form-check-label" for="visible_cars">
-              Samochodów firmowych
-              </label><br />
-              <input class="form-check-input" type="checkbox" name="visible_magazine" value="" id="visible_magazine">
-              <label class="form-check-label" for="visible_magazine">
-              Magazynu
-              </label><br />
-              <input class="form-check-input" type="checkbox" name="visible_phone" value="" id="visible_phone">
-              <label class="form-check-label" for="visible_phone">
-              Telefonów innych Pracowników
-              </label><br />
+              <button class="btn btn-primary" style="margin-bottom:1%;" type="button" data-toggle="collapse" data-target="#addrank" aria-expanded="false" aria-controls="addrank">
+              Dodaj Range
+              </button>
+              <div class="collapse" id="addrank">
+                <div class="card card-body">
+                  <form method="POST" action="{% url 'organization' %}">{% csrf_token %}
+                    <input type='text' placeholder="Nazwa Rangi" class="form-control" name="rank_name" id="id_rank_name" />
+                      <h5> Uprawnienia do Pokazania: </h5>
+                        <div class="col-12">
+                          <input class="form-check-input" type="checkbox" name="visible_money" id="id_visible_money">
+                            <label class="form-check-label" for="id_visible_money">
+                            Pieniędzy firmowych
+                            </label><br />
+                          <input class="form-check-input" type="checkbox" name="visible_ranks" id="id_visible_ranks">
+                            <label class="form-check-label" for="id_visible_ranks">
+                            Rang innych Pracowników
+                            </label><br />
+                          <input class="form-check-input" type="checkbox" name="visible_chat" id="id_visible_chat">
+                            <label class="form-check-label" for="id_visible_chat">
+                            Chatu Organizacji
+                            </label><br />
+                          <input class="form-check-input" type="checkbox" name="visible_cars" id="id_visible_cars">
+                            <label class="form-check-label" for="id_visible_cars">
+                            Samochodów firmowych
+                            </label><br />
+                          <input class="form-check-input" type="checkbox" name="visible_magazine" id="id_visible_magazine">
+                            <label class="form-check-label" for="id_visible_magazine">
+                            Magazynu
+                            </label><br />
+                          <input class="form-check-input" type="checkbox" name="visible_phone" id="id_visible_phone">
+                            <label class="form-check-label" for="id_visible_phone">
+                            Telefonów innych Pracowników
+                            </label><br />
+                        </div>
+                      <div class="form-group row" style="padding-left:1%;">
+                        <label class="col-form-label" for="id_rank_power"> Siła rangi: </label>
+                          <div class="col-sm-2">
+                            <input type="number" max="100" min="1" class="form-control" name="rank_power" id="id_rank_power" />
+                          </div>
+                      </div>
+                    <div class="col-sm-12">
+                      <h6> * wpisz od 1 do 100 </h6>
+                      <h6> ** 90+ daje uprawnienia administracyjne </h6>
+                    </div>
+                    <input type="submit" class="btn btn-dark" value="Dodaj" />
+                  </form>
+                </div>
               </div>
-              <div class="form-group row" style="padding-left:1%;">
-              <label class="col-form-label" for="rank_power"> Siła rangi: </label>
-              <div class="col-sm-2">
-              <input type="number" max="100" min="1" class="form-control" name="rank_power" id="rank_power" />
-              </div>
-              </div>
-              <div class="col-sm-12">
-              <h6> * wpisz od 1 do 100 </h6>
-              <h6> ** 90+ daje uprawnienia administracyjne </h6>
-              </div>
-              <input type="submit" class="btn btn-dark" value="Dodaj" />
-              </form>
             <div class="list-group border-top border-dark">
             <h4> Twoje Obencne Rangi </h4>
             <form action="{% url 'organization' %}">
@@ -72,8 +76,6 @@
               {% endfor %}
             </form>
             </div>
-
-
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Wyjdź</button>

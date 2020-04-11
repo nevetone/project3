@@ -1,0 +1,34 @@
+{% extends 'extends/base_logged.html' %}
+
+{% block content %}
+<div class="container-fluid bg-dark w-100 content" >
+    <div class="row" style="min-height:100%;">
+        <div class="col-sm-11 mx-auto shadow p-3">
+            <div class="row p-3 " style="min-height:100%;">
+                {% if player.organization_level.rank_power >= 90 %}
+
+
+
+
+
+
+
+
+
+
+                {% else %}
+                <div class="p-3">
+                    <h5> Nie masz dostępu do tego panelu</h5>
+                    <h5> Wróc do organizacji <a href="{% url 'organization' %}" class="btn btn-dark"> Organizacja </a> </h5>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+<footer class="page-footer font-small bg-dark text-white" style="width:100vw;">
+    <div class="footer-copyright text-center py-3"><i class="far fa-copyright"></i> 2020 Copyright: <a href="/status/"> Xyz </a>
+    </div>
+</footer>
+
+{% endblock content %}

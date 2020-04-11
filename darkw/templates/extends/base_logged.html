@@ -11,7 +11,7 @@
 <link rel="stylesheet" href="{% static 'css/style.css' %}" type="text/css">
 <title>DW CountrySide</title>
 </head>
-<body class="{% if user.is_authenticated %}logged{% else %}main{% endif %} h-100" >
+<body class="{% if user.is_authenticated %}logged{% else %}main{% endif %} h-100"  style="overflow:hidden;">
 {% if user.is_authenticated %}
 {% include 'includes/navbar.html' %}
 {% block content %}

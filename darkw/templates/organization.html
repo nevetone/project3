@@ -1,7 +1,7 @@
 {% extends 'extends/base_logged.html' %}
 {% block content %}
 {% load humanize %}
-<div class="container-fluid bg-dark w-100 content">
+<div class="container-fluid bg-dark w-100 content" >
     <div class="row" style="min-height:100%;">
         <div class="col-sm-11 mx-auto shadow p-3">
             <div class="row p-3 " style="min-height:100%;">
@@ -44,7 +44,7 @@
                                     <h6> Zarządzanie Organizacją: </h6>
                                         <button class="btn btn-dark righteous border-bottom" data-toggle="modal" data-target="#invite"> Zaproś </button>
                                         <button class="btn btn-dark righteous border-bottom" data-toggle="modal" data-target="#ranks"> Rangi </button>
-                                        <button class="btn btn-dark righteous border-bottom"> Zarządzanie </button>
+                                        <a class="btn btn-dark righteous border-bottom" href="{% url 'management' %}"> Zarządzanie </a>
                                 {% endif %}
                     </div>
                 </div>
@@ -97,24 +97,30 @@
                     </div>
                 </div>
             <div class="col-sm-6" style="overflow-y:auto; overflow-x:hidden;">
-                <div class="col-content" style="overflow:auto;">
+                <div class="col-content" style="overflow-x:hidden;">
                     <h3> Pracownicy: </h3>
-                {% for worker in player.organization.organizationworkers.workers.all %}
-                        <h5 class="righteous">
-                {{ worker.nickname|capfirst }}
-                {% if player.organization_level.visible_ranks == True %}
-                    <span class="badge-pill badge-light" style="margin-right:3px;">
-                {{ worker.organization_level.rank_name }}
-                    </span>
-                    {% if player.organization_level.visible_phone == True %}
-                    <i class="fas fa-mobile-alt"></i>
-                    <span>
-                    {{ worker.phone }}
-                    </span>
-                    {% endif %}
-                {% endif %} 
-                        </h5>
-                {% endfor %}
+                    <table class="table text-light">
+                            <tbody>
+                        {% for worker in player.organization.organizationworkers.workers.all %}
+                            <tr>
+                                {% if player.organization_level.visible_ranks == True %}
+                                    <td class="righteous">
+                                        {{ worker.organization_level.rank_name }}
+                                    </td>
+                                    {% endif %}
+                                        <th scope="row" class="righteous">
+                                            {{ worker.nickname|capfirst }}
+                                        </th>
+                                {% if player.organization_level.visible_phone == True %}
+                                    <td>
+                                        <i class="fas fa-mobile-alt"></i>
+                                        {{ worker.phone }}
+                                    </td>
+                                {% endif %} 
+                        {% endfor %}
+                            </tr>
+                          </tbody>
+                        </table>
                 </div>
             </div>
             <div class="col-sm-6" style="border-top:2px solid white;">
@@ -138,7 +144,7 @@
         </div>
     </div>
 </div>
-<footer class="page-footer font-small bg-dark text-white" style="width:100vw;">
+<footer class="page-footer font-small bg-dark text-white" style="width:100vw; overflow:hidden;">
     <div class="footer-copyright text-center py-3"><i class="far fa-copyright"></i> 2020 Copyright: <a href="/status/"> Xyz </a>
     </div>
 </footer>

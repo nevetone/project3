@@ -3,8 +3,8 @@ from django.http import HttpResponseRedirect
 from main.models import Players
 from django.contrib.auth import get_user_model
 from items.models import ItemsCategory
-from organization.models import OrganizationCars, OrganizationItems, Invites
-from .forms import InviteForm, AcceptForm
+from organization.models import OrganizationCars, OrganizationItems, Invites, OrganizationRanks
+from .forms import InviteForm, AcceptForm, AddRank
 
 User = get_user_model()
 # Create your views here.
@@ -14,18 +14,19 @@ def organization(request):
     player = None
     form = None
     invited_from = None
+    add_form = None
     players = None
     items_category = None
     items = None
     cars = None
     
     
-
+    # pobieranie gracza
     try:
         player = Players.objects.get(nickname=request.user)
     except:
         player = None
-
+    # pobieranie przedmiotow organizacji
     items = []
     try:
         organization_items = OrganizationItems.objects.all()
@@ -34,7 +35,7 @@ def organization(request):
                 items.append(item)
     except:
         organization_items = None
-    
+    # pobieranie samochodow organizacji
     cars = []
     try:
         organization_cars = OrganizationCars.objects.all()
@@ -48,9 +49,7 @@ def organization(request):
         players = Players.objects.all()
     except:
         players = None
-    
-    
-
+    # zapraszanie gracza do organzacji
     if request.method == 'POST':
         form = InviteForm(request.POST)
         if form.is_valid():
@@ -65,11 +64,10 @@ def organization(request):
                     inv.save()
             except:
                 pass
-            
     else:
         form = InviteForm()
         
-    
+    # wyswietlanie zaproszen
     try:
         players_invites = Invites.objects.all()
         for x in players_invites:
@@ -82,14 +80,11 @@ def organization(request):
     except:
         players_invites = None
         invited_from = None
-        
-        
+    # akceptowanie zaproszen
     try:
         accept = request.GET.get('accept')
     except:
         accept = None
-    
-    
     try:
         if invited_from is not None:
             if accept == "False":
@@ -108,8 +103,7 @@ def organization(request):
                 invite.delete()
     except:
         invite = None
-    
-    
+    # usuwanie rang
     try:
         rank_del = request.GET.get('del')
         if player.organization_level.rank_power >= 90:
@@ -133,11 +127,59 @@ def organization(request):
                 pass
     except:
         pass
-    
+    # tworzenie rang
+    add_form = AddRank(request.POST or None)
+    if add_form.is_valid():
+        rank_name = add_form.cleaned_data['rank_name']
+        visible_money = add_form.cleaned_data['visible_money']
+        visible_ranks = add_form.cleaned_data['visible_ranks']
+        visible_chat = add_form.cleaned_data['visible_chat']
+        visible_cars = add_form.cleaned_data['visible_cars']
+        visible_magazine = add_form.cleaned_data['visible_magazine']
+        visible_phone = add_form.cleaned_data['visible_phone']
+        rank_power = add_form.cleaned_data['rank_power']
+            
+        if int(rank_power) >= 90:
+            admin = True
+        else:
+            admin = False
+        try:
+            unique = player.organization.ranks.all()
+            for u in unique:
+                if u.rank_name == rank_name:
+                    unique = False
+                    pass
+                else:
+                    pass
+            if unique == False:
+                pass
+            else:
+                rank = OrganizationRanks(organization = player.organization ,rank_name = rank_name, visible_money = visible_money,\
+                    visible_ranks = visible_ranks, visible_chat = visible_chat, \
+                       visible_cars = visible_cars, visible_phone = visible_phone, visible_magazine = visible_magazine,\
+                          rank_power = rank_power, admin = admin)
+                rank.save()
+                player.organization.ranks.add(rank)
+                player.organization.save()
+        except:
+            pass
+    else:
+        add_form = AddRank()
+    # pobeiranie kategori przedmiotow
     items_category = ItemsCategory.objects.all()
 
-    context = {'player':player,'form':form, 'invited_from':invited_from, 'players':players, 'items_category':items_category, 'organization_items':items,'cars':cars,}
+    context = {'player':player,'form':form,'add_form':add_form, 'invited_from':invited_from, 'players':players, 'items_category':items_category, 'organization_items':items,'cars':cars,}
     return render(request, template, context)
 
 
+
+def management(request):
+    template = 'management.html'
+    # pobieranie gracza
+    try:
+        player = Players.objects.get(nickname=request.user)
+    except:
+        player = None
     
+    context ={'player':player,}
+    return render(request, template, context)
