@@ -3,8 +3,9 @@ from django.http import HttpResponseRedirect
 from main.models import Players
 from django.contrib.auth import get_user_model
 from items.models import ItemsCategory
-from organization.models import OrganizationCars, OrganizationItems, Invites, OrganizationRanks
+from organization.models import OrganizationCars, OrganizationItems, Invites, OrganizationRanks, OrganizationWorkers
 from .forms import InviteForm, AcceptForm, AddRank
+from main.models import Organizations
 
 User = get_user_model()
 # Create your views here.
@@ -167,7 +168,10 @@ def organization(request):
     else:
         add_form = AddRank()
     # pobeiranie kategori przedmiotow
-    items_category = ItemsCategory.objects.all()
+    try:
+        items_category = ItemsCategory.objects.all()
+    except:
+        pass
 
     context = {'player':player,'form':form,'add_form':add_form, 'invited_from':invited_from, 'players':players, 'items_category':items_category, 'organization_items':items,'cars':cars,}
     return render(request, template, context)
@@ -203,6 +207,69 @@ def management(request):
                     else:
                         pass
     except:
+        pass
+    
+    try:
+        if player.organization_level.rank_power >= 90:
+            player_rank_and_name = request.GET.get('playerrank')
+            player_rank, player_name = player_rank_and_name.split('#')
+        else:
+            player_rank_and_name = None
+    except:
+        pass
+    
+    if player_rank_and_name is not None:
+        try:
+            for t in player.organization.organizationworkers.workers.all():
+                if player.organization_level.rank_power > t.organization_level.rank_power:
+                    if t.nickname.username == player_name:
+                        organization_ranks = OrganizationRanks.objects.get(rank_name = player_rank)
+                        t.organization_level = organization_ranks
+                        t.save()
+                        pass
+                    else:
+                        pass
+        except:
+            pass
+
+    try:
+        if player.organization_level.rank_power >= 100:
+            new_name = request.GET.get('organization_name')
+            curret_name = request.GET.get('curret')
+            
+        else:
+            new_name = None
+            curret_name = None
+    except:
+        pass
+    
+    is_unique = True
+    try:
+        for q in Organizations.objects.all():
+            if q.organization_name == new_name:
+                is_unique = False
+            else:
+                pass
+    except:
+        pass
+    
+    if new_name is not None and curret_name is not None: 
+        try:
+            if is_unique == False:
+                pass
+            else:
+                for e in Organizations.objects.all():
+                    if e.organization_name == new_name:
+                        pass
+                    elif e.organization_name == curret_name:
+                        e.organization_name = new_name
+                        e.save()
+                    else:
+                        pass
+                    
+        except:
+            pass
+    else:
         pass
     
     context ={'player':player,}

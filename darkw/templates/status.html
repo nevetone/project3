@@ -31,7 +31,9 @@
                         <h4>
                         <i class="fas fa-building"></i>
                          Nie Należysz do organizacji<br />
-                        <button href="#" class="bnt btn-secondary rounded-pill border border-dark"> Zaproszenia do Organizacji </button>
+                        {% if player.invited == True %}
+                            <a href="{% url 'organization' %}" class="righteous btn btn-secondary rounded-pill border border-dark"> Zaproszenia do Organizacji </a>
+                        {% endif %}
                         </h4>
                         {% endif %}
                     </h3>
@@ -57,19 +59,3 @@
 </footer>
 
 {% endblock content %}
-
-
-
-
-
-
-
-
-
-{% comment %} 
-<h4>
-Witaj, {{ player.nickname }}<br />
-Twoje saldo to: {{ player.money }}<br />
-Twój szef to: {{ player.organization.boss }}<br />
-Saldo Organizacji to: {{ player.organization.money }}
-</h4> {% endcomment %}
