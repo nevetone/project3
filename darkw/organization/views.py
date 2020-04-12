@@ -161,6 +161,7 @@ def organization(request):
                 rank.save()
                 player.organization.ranks.add(rank)
                 player.organization.save()
+                pass
         except:
             pass
     else:
@@ -198,6 +199,7 @@ def management(request):
                         player.organization.organizationworkers.workers.remove(y)
                         y.save()
                         player.save()
+                        pass
                     else:
                         pass
     except:

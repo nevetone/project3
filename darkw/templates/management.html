@@ -11,7 +11,6 @@
                             <span><h3> Pracownicy: </h3><h6> *Uwaga, usuwanie nie wymaga potwierdzenia </h6> </span>
                             <table class="table text-light">
                                 <tbody>
-                                    <form action="{% url 'management' %}">
                                 {% for worker in player.organization.organizationworkers.workers.all %}
                                     <tr>
                                         {% if player.organization_level.visible_ranks == True %}
@@ -29,22 +28,26 @@
                                             </td>
                                         {% endif %}
                                         <td>
-                                            <button class="btn btn-dark border border-light text-warning p-1 float-right" id="edit" style="margin-right:5%;">
+                                        {% if worker.organization_level.rank_power >= 100 %}
+                                        {% else %}
+                                            <button class="btn btn-dark border border-light text-warning p-1 float-right" id="edit-player" style="margin-right:5%;" data-toggle="modal" data-target="#edit-{{ worker }}" name="player" value="{{ worker }}">
                                                 <i class="fas fa-cogs"></i> Edytuj
                                             </button>
+                                        {% endif %}
                                             {% if worker.organization_level.rank_power >= 100 %}
                                             {% else %}
                                                 {% if player.organization_level.rank_power > worker.organization_level.rank_power %}
-                                                <button class="btn btn-dark text-danger border border-danger p-1 float-right" name="del_worker" id="id_{{ worker }}" value="{{ worker }}" style="margin-right:5%;">
-                                                    <i class="fas fa-times"></i> Wyrzuć
-                                                </button>
+                                                <form action="{% url 'management' %}">
+                                                    <button class="btn btn-dark text-danger border border-danger p-1 float-right" name="del_worker" id="id_{{ worker }}" value="{{ worker }}" style="margin-right:5%;">
+                                                        <i class="fas fa-times"></i> Wyrzuć
+                                                    </button>
+                                                </form>
                                                 {% else %}
                                                 {% endif %}
                                             {% endif %}
                                         </td>
                                 {% endfor %}
                                     </tr>
-                                    </form>
                                 </tbody>
                             </table>
                         </div>
@@ -63,5 +66,45 @@
     <div class="footer-copyright text-center py-3"><i class="far fa-copyright"></i> 2020 Copyright: <a href="/status/"> Xyz </a>
     </div>
 </footer>
+
+
+{% for worker in player.organization.organizationworkers.workers.all %}
+<div class="modal fade" id="edit-{{ worker }}" tabindex="-1" role="dialog" aria-labelledby="edit-{{ worker }}" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Edycja Gracza: {{ worker|capfirst }} </h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" id="modal-content">
+        <div class="form-group">
+        <h5>Zmień Range:</h5>
+            <form action="{% url 'management' %}">
+            <select class="form-control" name="playerrank" id="id_playerrank">
+                {% for player_rank in player.organization.ranks.all %}
+                    {% if worker.organization_level == player_rank %}
+                    {% else %}
+                        {% if player_rank.rank_power >= 100 %}
+                        {% else %}
+                            <option value="{{ player_rank.rank_name }}">{{ player_rank.rank_name }}</option>
+                        {% endif %}
+                    {% endif %}
+                {% endfor %}
+            </select>
+                <input type="submit" class="btn btn-primary" value="Zapisz" />
+            </form>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Zamknij</button>
+      </div>
+    </div>
+  </div>
+</div>
+{% endfor %}
+
+
 
 {% endblock content %}
