@@ -21,6 +21,7 @@ from main.views import index, status
 from auth_user.views import logout_view, login_view, registration_view
 from organization.views import organization, management
 from profiles.views import profiles, tests
+from orders.views import orders
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -32,7 +33,9 @@ urlpatterns = [
     path('status/organization/', organization, name="organization"),
     path('status/organization/management/', management, name="management"),
     path('status/profiles/', profiles, name="profiles"),
+    path('status/orders/', orders, name="orders"),
     path('status/tests/', tests, name="tests"),
+    
 ]
 
 if settings.DEBUG:

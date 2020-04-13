@@ -17,7 +17,7 @@
         <a class="nav-link" href="{% url 'organization' %}">Organizacja</a>
       </li>
       <li class="nav-item {% if request.get_full_path == "/status/orders/" %}active border-bottom{% endif %}">
-        <a class="nav-link" href="#">Zlecenia</a>
+        <a class="nav-link" href="{% url 'orders' %}">Zlecenia</a>
       </li>
     </ul>
       <a href="{% url 'logout_view' %}" class="btn btn-secondary my-2 my-sm-0" style="color:white;">Wyloguj</a>

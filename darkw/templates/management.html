@@ -6,6 +6,19 @@
         <div class="col-sm-11 mx-auto shadow p-3">
             <div class="row p-3 " style="min-height:100%;">
                 {% if player.organization_level.rank_power >= 90 %}
+                    <div class="col-sm-6 border-light border-right" style="overflow-y:auto; overflow-x:hidden;">
+                        <div class="col-content p-1" style="overflow-x:hidden;">
+                            <h3> Organizacja: </h3>
+                                <h4> Nazwa oragnizacji: <span class="righteous"> {{ player.organization }} </span> </h4>
+                                    <form action="{% url 'management' %}">
+                                    <input type="text" name="organization_name" class="righteous form-control-sm" placeholder="Nowa Nazwa" />
+                                    <input hidden value="{{ player.organization }}" name="curret" />
+                                    <input type="submit" value="Potwierdź" class="righteous btn btn-dark border border-light" />
+                                    <h6> *Nazwe może zmienić tylko właściciel </h6>
+                                    <h6> *Jeżeli nazwa się niezmieniła oznacza, że jest zajęta lub niepoprawna </h6>
+                                    </form>
+                        </div>
+                    </div>
                     <div class="col-sm-6" style="overflow-y:auto; overflow-x:hidden;">
                         <div class="col-content" style="overflow-x:hidden;">
                             <span><h3> Pracownicy: </h3><h6> *Uwaga, usuwanie nie wymaga potwierdzenia </h6> </span>
@@ -40,7 +53,7 @@
                                             {% if worker.organization_level.rank_power >= 100 %}
                                             {% else %}
                                                 {% if player.organization_level.rank_power > worker.organization_level.rank_power %}
-                                                <form action="{% url 'management' %}" style="display: inline">
+                                                <form action="{% url 'management' %}" style="display: inline;">
                                                     <button class="btn btn-dark text-danger border border-danger p-1 float-right" name="del_worker" id="id_{{ worker }}" value="{{ worker }}" style="margin-right:5%;">
                                                         <i class="fas fa-times"></i> Wyrzuć
                                                     </button>
@@ -53,19 +66,6 @@
                                     </tr>
                                 </tbody>
                             </table>
-                        </div>
-                    </div>
-                    <div class="col-sm-6 border-left border-light" style="overflow-y:auto; overflow-x:hidden;">
-                        <div class="col-content p-1" style="overflow-x:hidden;">
-                            <h3> Organizacja: </h3>
-                                <h4> Nazwa oragnizacji: <span class="righteous"> {{ player.organization }} </span> </h4>
-                                    <form action="{% url 'management' %}">
-                                    <input type="text" name="organization_name" class="righteous form-control-sm" placeholder="Nowa Nazwa" />
-                                    <input hidden value="{{ player.organization }}" name="curret" />
-                                    <input type="submit" value="Potwierdź" class="righteous btn btn-dark border border-light" />
-                                    <h6> *Nazwe może zmienić tylko właściciel </h6>
-                                    <h6> *Jeżeli nazwa się niezmieniła oznacza, że jest zajęta lub niepoprawna </h6>
-                                    </form>
                         </div>
                     </div>
                 {% else %}

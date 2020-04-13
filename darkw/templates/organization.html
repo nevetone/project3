@@ -6,8 +6,8 @@
         <div class="col-sm-11 mx-auto shadow p-3">
             <div class="row p-3 " style="min-height:100%;">
                 {% if player.organization_status == False %}
-                <div class="col-sm-12">
-                    <span class="righteous" > <h3> Organizacja:  Nie Posiadasz </h3>
+                    <div class="col-sm-12">
+                        <span class="righteous" > <h3> Organizacja:  Nie Posiadasz </h3>
                     {% if player.invited == True %}
                     <h4> Zaproszenia: </h4>
                         <div class="badge badge-pill border p-3">
@@ -27,7 +27,7 @@
                                 </span></h3>
                             </form>
                         </div>
-                        </div>
+                    </div>
                     {% else %}
                     <h5> Poczekaj aż Cię ktoś zaprosi </h5>
                 </div>
@@ -87,11 +87,11 @@
                                     </div>
                                 {% endfor %}
                             </div>
+                                {% else %}
+                                    <h4> Nie Posiadasz przedmiotów w magazynie </h4>
+                                {% endif %}
                             {% else %}
-                            <h4> Nie Posiadasz przedmiotów w magazynie </h4>
-                            {% endif %}
-                            {% else %}
-                            <h4> Nie masz dostępu do magazynu </h4>
+                                <h4> Nie masz dostępu do magazynu </h4>
                             {% endif %}
                         </div>
                     </div>
