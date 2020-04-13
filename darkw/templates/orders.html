@@ -24,7 +24,7 @@
                                                 <th scope="col">Zlecenie</th>
                                                 <th scope="col">Opis</th>
                                                 <th scope="col" class="text-center">Status</th>
-                                                <th scope="col" ><span class="float-right" style="margin-right:15%;" >Usuń</span></th>
+                                                <th scope="col" ><span class="float-right" style="margin-right:15%;" >Akcja</span></th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -46,13 +46,33 @@
                                                         <td class="righteous text-center">
                                                             {{ o.status }}
                                                         </td>
+                                                        {% if o.status.status == 'Rozpoczęte' %}
+                                                        <td class="text-right">
+                                                        W trakcie
+                                                        </td>
+                                                        {% elif o.status.status == 'Aktywne' %}
                                                         <td class="p-1">
                                                             <form action="{% url 'orders' %}" style="display: inline;">
                                                                 <button class="btn btn-dark text-danger righteous border-danger float-right" name="" id="" value="" style="margin:1px 0; margin-right:5%;">
-                                                                    <i class="fas fa-times"></i>Usuń
+                                                                    <i class="fas fa-times"></i> Usuń
                                                                 </button>
                                                             </form>
                                                         </td>
+                                                        {% else %}
+                                                            {% if o.received == False %}
+                                                        <td class="p-1">
+                                                            <form action="{% url 'orders' %}" style="display: inline;">
+                                                                <button class="btn btn-dark righteous border-success float-right" name="" id="" value="" style="margin:1px 0; margin-right:5%;">
+                                                                Odbierz
+                                                                </button>
+                                                            </form>
+                                                        </td>
+                                                        {% else %}
+                                                        <td class="text-right">
+                                                        Odebrane
+                                                        </td>
+                                                        {% endif %}
+                                                        {% endif %}
                                                     </tr>
                                                 {% endif %}
                                             {% endfor %}
@@ -64,13 +84,74 @@
                     </div>
                 </div>
                 <div class="col-sm-6">
-                    <div class="col-content" style="padding-left:5%;">
+                    <div class="col-content" style="padding-left:1%;">
                         <h3> Wszystkie Zlecenia :</h3>
-                        {% for o in all_orders %}
-
-                        <h3>{{ o }}</h3>
-
-                        {% endfor %}
+                        <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+                            {% for ts in types %}
+                                <li class="nav-item">
+                                    <a class="nav-link btn btn-dark border-info righteous {% if forloop.first %}active{% endif %}" id="pills-{{ ts.order_type }}" data-toggle="pill" href="#{{ ts.order_type }}" role="tab" aria-controls="{{ ts.order_type }}" aria-selected="{% if forloop.firstloop %}true{% else %}false{% endif %}">{{ ts.order_type|capfirst }}</a>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                        <div class="tab-content" id="pills-tabContent">
+                            {% for tu in types %}
+                                <div class="tab-pane fade show {% if forloop.first %}active{% endif %}" id="{{ tu.order_type }}" role="tabpanel" aria-labelledby="pills-{{ tu.order_type }}">
+                                    <table class="table table-striped table-dark" style="width:95%;">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">Zlecenie</th>
+                                                <th scope="col">Opis</th>
+                                                <th scope="col" class="text-center">Gracz</th>
+                                                <th scope="col" class="text-center">Status</th>
+                                                <th scope="col" ><span class="float-right" style="margin-right:15%;" >Akceptuj</span></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {% for to in all_orders %}
+                                                {% if to.order_type.order_type == tu.order_type %}
+                                                    {% if to.status.status != 'Aktywne' and to.status.status != 'Rozpoczęte' %}
+                                                    {% else %}
+                                                        <tr>
+                                                            <th scope="row">
+                                                                {{ to.order_type|capfirst }}
+                                                            </th>
+                                                            <td>
+                                                                {% if to.order_type.order_type == "Kontrabanda" %}
+                                                                    Transport Broni
+                                                                {% elif to.order_type.order_type == "Pranie" %}
+                                                                    Pranie {{ to.if_pranie|intcomma }}$ z prowizją {{ to.if_pranie_prowizja }}%
+                                                                {% elif to.order_type.order_type == "Sprzedaż" %}
+                                                                    Sprzedawanie Towaru
+                                                                {% endif %}
+                                                            </td>
+                                                            <td class="righteous text-center ">
+                                                            {{ to.player }}
+                                                            </td>
+                                                            <td class="text-center righteous">
+                                                                {{ to.status }}
+                                                            </td>
+                                                            {% if to.status.status != "Aktywne" %}
+                                                            <td class="text-right" style="padding:1% 0; padding-right:4%;">
+                                                            Przyjęte
+                                                            </td>
+                                                            {% else %}
+                                                            <td style="padding:1% 0; padding-right:3%;">
+                                                            <form action="{% url 'orders' %}" style="display:inline;">
+                                                            <button class=" btn btn-success border-warning p-1 float-right righteous" style="color:white;" name="akcept" value="{{ to.id }}">
+                                                                Akceptuj
+                                                            </button>
+                                                            </form>
+                                                            </td>
+                                                            {% endif %}
+                                                        </tr>
+                                                    {% endif %}
+                                                {% endif %}
+                                            {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            {% endfor %}
+                        </div>
                     </div>
                 </div>
             </div>
