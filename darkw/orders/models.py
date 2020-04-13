@@ -19,7 +19,7 @@ class Orders(models.Model):
         ordering=['-created' ,'-order_type']
     
     def __str__(self):
-        return str(self.player) + " | " + str(self.order_type)
+        return "id: " + str(self.id) + ' | ' + str(self.player) + " | " + str(self.order_type)
 
 
 class OrdersStatus(models.Model):

@@ -30,6 +30,7 @@
                                         <tbody>
                                             {% for o in orders %}
                                                 {% if o.status.status == u.status %}
+                                                
                                                     <tr>
                                                         <th scope="row">
                                                             {{ o.order_type|capfirst }}
@@ -53,7 +54,7 @@
                                                         {% elif o.status.status == 'Aktywne' %}
                                                         <td class="p-1">
                                                             <form action="{% url 'orders' %}" style="display: inline;">
-                                                                <button class="btn btn-dark text-danger righteous border-danger float-right" name="" id="" value="" style="margin:1px 0; margin-right:5%;">
+                                                                <button class="btn btn-dark text-danger righteous border-danger float-right" name="del_order" id="id_{{ o.id }}" value="{{ o.id }}" style="margin:1px 0; margin-right:5%;">
                                                                     <i class="fas fa-times"></i> Usuń
                                                                 </button>
                                                             </form>
@@ -62,7 +63,7 @@
                                                             {% if o.received == False %}
                                                         <td class="p-1">
                                                             <form action="{% url 'orders' %}" style="display: inline;">
-                                                                <button class="btn btn-dark righteous border-success float-right" name="" id="" value="" style="margin:1px 0; margin-right:5%;">
+                                                                <button class="btn btn-dark righteous border-success float-right" name="get_order" id="" value="{{ o.id }}" style="margin:1px 0; margin-right:5%;">
                                                                 Odbierz
                                                                 </button>
                                                             </form>
@@ -135,7 +136,7 @@
                                                             Przyjęte
                                                             </td>
                                                             {% else %}
-                                                            <td style="padding:1% 0; padding-right:3%;">
+                                                            <td style="padding:1% 0; padding-right:2%;">
                                                             <form action="{% url 'orders' %}" style="display:inline;">
                                                             <button class=" btn btn-success border-warning p-1 float-right righteous" style="color:white;" name="akcept" value="{{ to.id }}">
                                                                 Akceptuj

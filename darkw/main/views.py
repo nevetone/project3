@@ -25,6 +25,8 @@ def status(request):
         player = Players.objects.get(nickname=request.user)
     except:
         player = None
+
+
     
     template = 'status.html'
     context = {"player":player,}
