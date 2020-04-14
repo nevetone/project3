@@ -70,14 +70,8 @@ def organization(request):
         
     # wyswietlanie zaproszen
     try:
-        players_invites = Invites.objects.all()
-        for x in players_invites:
-            to = x.organization
-            who = x.players
-            if who == player:
-                invited_from = to
-            else:
-                invited_from = None
+        players_invites = Invites.objects.get(players = player)
+        invited_from = players_invites.organization
     except:
         players_invites = None
         invited_from = None
@@ -186,7 +180,7 @@ def management(request):
     except:
         player = None
     
-    
+    # usuwanie z organizaji
     if player.organization_level.rank_power >= 90:
         del_player = request.GET.get('del_worker')
     else:
@@ -209,6 +203,7 @@ def management(request):
     except:
         pass
     
+    # zmiana rangi gracza w organziacji
     try:
         if player.organization_level.rank_power >= 90:
             player_rank_and_name = request.GET.get('playerrank')
@@ -223,7 +218,7 @@ def management(request):
             for t in player.organization.organizationworkers.workers.all():
                 if player.organization_level.rank_power > t.organization_level.rank_power:
                     if t.nickname.username == player_name:
-                        organization_ranks = OrganizationRanks.objects.get(rank_name = player_rank)
+                        organization_ranks = OrganizationRanks.objects.get(rank_name = player_rank, organization = player.organization)
                         t.organization_level = organization_ranks
                         t.save()
                         pass
@@ -231,7 +226,7 @@ def management(request):
                         pass
         except:
             pass
-
+            # zmiana nazwy organziacji
     try:
         if player.organization_level.rank_power >= 100:
             new_name = request.GET.get('organization_name')

@@ -5,21 +5,22 @@
         <div class="col-sm-11 mx-auto shadow p-3">
             <div class="row" style="min-height:100%;">
                 <div class="col-sm-12 ">
-                    <div class="col-content">
-
-
-<div id="div_data" style="height: 500px; width: 100%; overflow-y: scroll;">
-</div>
-
-<div style="background-color: blueviolet; box-sizing: border-box;">
-<input type="text" name="message" id="message" placeholder="Message" style="margin:1% 1%; width: 98%;">
-<input type="button" value="Send Message" id="send_message" style="width: 100%; ">
-</div>
-
+                    <div class="h-100" style="margin:0 5%;">
+                        <div id="div_data" style="height:80%; width:100%; overflow-y: scroll; overflow-x:hidden;">
+                            {% for message in messages %}
+                                <br /><div style="overflow:visible;">{{ message.message|safe }}</div>
+                            {% endfor %}
+                        </div>
+                        <div class="col-sm-12">
+                            <input type="text" name="message" id="message" placeholder="Wiadomość" class="righteous form-control ">
+                            <input type="button" value="Wyślij Wiadomość" id="send_message" class="righteous border border-light btn btn-dark btn-group-lg">
+                            <span id="error"></span>
+                        </div>
 
 
 {% comment %} łaczenie z ws {% endcomment %}
 <script>
+
     var roomName = '{{ room_name }}' ;
     var personName = '{{ person_name }}' ;
     var chatSocket = new WebSocket('ws://'+window.location.host+'/ws/chat/'+roomName+'/'+personName+'/');
@@ -28,19 +29,48 @@
         var message = data['message']
         var div = document.querySelector('#div_data');
         div.innerHTML+='<br>'+message;
+        document.getElementById('div_data').scrollTop = document.getElementById('div_data').scrollHeight;
     }
     chatSocket.onclose=function(e){
         var data = JSON.parse(e.data)
         var message = data['message']
         var div = document.querySelector('#div_data');
         div.innerHTML+='<br>'+message;
+        document.getElementById('div_data').scrollTop = document.getElementById('div_data').scrollHeight;
     }
+
+    var input = document.getElementById("message");
+    input.addEventListener("keyup", function(event) {
+    if (event.keyCode === 13) {
+
+        var message = document.querySelector("#message").value;
+        if(message==""){
+        document.querySelector("#error").innerHTML = "Nie możesz wysłać pustej wiadomości.";
+        }else{
+        chatSocket.send(JSON.stringify({'message':message }))
+        document.querySelector("#message").value = '';
+        document.querySelector("#error").innerHTML = '';
+        }
+
+    }
+    });
 
     document.querySelector("#send_message").onclick=function(e){
         var message = document.querySelector("#message").value;
+        if(message==""){
+        document.querySelector("#error").innerHTML = "Nie możesz wysłać pustej wiadomości.";
+        }else{
         chatSocket.send(JSON.stringify({'message':message }))
         document.querySelector("#message").value = '';
+        document.querySelector("#error").innerHTML = '';
+        }
+        
     }
+
+
+
+
+
 </script>
                     </div>
                 </div>

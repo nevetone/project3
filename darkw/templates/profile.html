@@ -13,19 +13,34 @@
                         <h4> <i class="fas fa-piggy-bank"></i> Twoje obecne saldo w banku: <span class="badge badge-pill badge-light righteous">{{ player.money_bank|intcomma }}$</span> </h4>
                         <h4> <i class="fas fa-dollar-sign"></i> Twoje obecne saldo w portfelu: <span class="badge badge-pill badge-light righteous">{{ player.money_portfel|intcomma }}$</span> </h4>
                         <h4> <i class="fas fa-mobile-alt"></i> Twój Numer: <span class="badge badge-pill badge-light righteous">{{ player.phone }}</span> </h4>
-                            {% if player.organization_status == True %}
-                            <h4>
-                            <i class="fas fa-building"></i> Twoja Organizacja: 
-                                <span class="badge badge-pill badge-light">
-                                    {{ player.organization|capfirst }}
-                                </span>
-                            </h4>
-                            {% else %}
-                            <h4> Nie Posiadasz Organizacji </h4>
-                            {% endif %}
                 </div>
             </div>
-                <div class="col-sm-6" style="overflow-y:auto; overflow-x:hidden;">
+            <div class="col-sm-6 ">
+                <div class="col-content">
+                    <h3> 
+                        {% if player.organization_status == True %}
+                        <i class="fas fa-building"></i>
+                         Twoja Organizacja: 
+                            <span class="badge badge-pill badge-light righteous">
+                                {{ player.organization|capfirst }}
+                            </span>
+                                <h4> Szef: <span class="righteous">{{ player.organization.boss|capfirst }}</span> </h4>
+                            {% if player.organization_level.visible_money == True %}
+                                <h4>Saldo organizacji: <span class="badge badge-pill badge-light righteous">{{ player.organization.money|intcomma }}$</span> </h4>
+                            {% endif %}
+                            {% else %}
+                        <h4>
+                        <i class="fas fa-building"></i>
+                         Nie Należysz do organizacji<br />
+                        {% if player.invited == True %}
+                            <a href="{% url 'organization' %}" class="righteous btn btn-secondary rounded-pill border border-dark"> Zaproszenia do Organizacji </a>
+                        {% endif %}
+                        </h4>
+                        {% endif %}
+                    </h3>
+                </div>
+            </div>
+               <div class="col-sm-12" style="overflow-y:auto; overflow-x:hidden;">
                     <div class="col-content" style="border-top:2px solid white;">
                         <div class="p-3">
                         <h4> Magazyn: </h4>
@@ -69,16 +84,6 @@
                         </div>
                     </div>
                 </div>
-            <div class="col-sm-6 ">
-                <div class="col-content" style="overflow:auto;">
-                    <h4> Zlecenia: </h4>
-                </div>
-            </div>
-            <div class="col-sm-6 ">
-                <div class="col-content" style="overflow:auto;">
-                    <h4> Twoje zlecenia: </h4>
-                </div>
-            </div>
         </div>
     </div>
 </div>

@@ -51,7 +51,7 @@ class OrganizationItems(models.Model):
     
 class Invites(models.Model):
     organization = models.ForeignKey("main.Organizations", on_delete=models.CASCADE)
-    players = models.OneToOneField("main.Players", on_delete=models.CASCADE)
+    players = models.ForeignKey("main.Players", on_delete=models.CASCADE, blank=True, null=True)
     active = models.BooleanField(default=True)
     
     def __str__(self):

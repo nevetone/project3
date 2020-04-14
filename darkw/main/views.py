@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from .models import Players, Organizations
+from .models import Players, Organizations, ChatMessages
 from django.contrib.auth import get_user_model
 from organization.models import OrganizationWorkers
 # Create your views here.
@@ -33,8 +33,12 @@ def status(request):
     return render(request, template, context)
 
 
-
-
 def SchowChatPage(request, person_name, room_name ):
+    
+    try:
+        messages = ChatMessages.objects.filter(room_name = room_name)
+    except:
+        pass
+    
     template = 'chat_screen.html'
-    return render(request, template, {'room_name':room_name, 'person_name':person_name})
+    return render(request, template, {'room_name':room_name,'messages':messages, 'person_name':person_name})

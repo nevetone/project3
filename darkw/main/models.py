@@ -39,3 +39,16 @@ class Organizations(models.Model):
     def __str__(self):
         return str(self.organization_name)
 
+
+class ChatMessages(models.Model):
+    nickname = models.CharField(max_length=50)
+    message = models.CharField(max_length=1000)
+    room_name = models.CharField(max_length=50, default="")
+    
+    class Meta:
+        ordering = ['id']
+    
+    def __str__(self):
+        return str(self.id) + " | " + str(self.nickname) +" | "+ str(self.room_name)
+    
+    

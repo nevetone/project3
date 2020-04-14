@@ -20,7 +20,7 @@
                         {% if player.organization_status == True %}
                         <i class="fas fa-building"></i>
                          Twoja Organizacja: 
-                            <span class="badge badge-pill badge-light">
+                            <span class="badge badge-pill badge-light righteous">
                                 {{ player.organization|capfirst }}
                             </span>
                                 <h4> Szef: <span class="righteous">{{ player.organization.boss|capfirst }}</span> </h4>
@@ -49,26 +49,28 @@
                         <h6> * Gdy zostawisz puste, dołączysz do głównego chatu Anonimowo </h6>
                         
                         {% comment %} tworzenie podstrony {% endcomment %}
-<script>
-    document.querySelector("#submit").onclick=function(e){
-        var roomname = document.querySelector("#room_name").value;
-        var personname = document.querySelector("#person_name").value;
-        if(personname == ""){
-            personname = "Anonimowy";
-        };
-        if(roomname == ""){
-            roomname = "Glowny";
-        };
-        window.location.pathname='/chat/room/'+roomname+'/'+personname;
-    }
-</script>
+                        <script>
+                            document.querySelector("#submit").onclick=function(e){
+                                var roomname = document.querySelector("#room_name").value;
+                                var personname = document.querySelector("#person_name").value;
+                                if(personname == ""){
+                                    personname = "Anonimowy";
+                                };
+                                if(roomname == ""){
+                                    roomname = "Glowny";
+                                };
+                                window.location.pathname='/chat/room/'+roomname+'/'+personname;
+                            }
+                        </script>
                 </div>
             </div>
-            <div class="col-sm-6 ">
-                <div class="col-content">
-                <h3> miejsce </h3>
+                <div class="col-sm-6 ">
+                    <div class="col-content">
+                    
+
+
+                    </div>
                 </div>
-            </div>
             </div>
         </div>
     </div>
