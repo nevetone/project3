@@ -46,6 +46,8 @@ INSTALLED_APPS = [
     'items',
     'profiles',
     'orders',
+    'channels',
+
 
 ]
 
@@ -132,3 +134,10 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'static/media/')
 STATIC_ROOT = os.path.join(BASE_DIR, 'static/static_root/')
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static/static_files/'),]
+
+ASGI_APPLICATION ="darkw.routing.application"
+CHANNEL_LAYERS = {
+    'default':{
+        "BACKEND":"channels.layers.InMemoryChannelLayer"
+    }
+}

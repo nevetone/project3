@@ -16,7 +16,7 @@ Including another URLconf
 from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
-from django.urls import path, re_path
+from django.urls import path, re_path, include
 from main.views import index, status
 from auth_user.views import logout_view, login_view, registration_view
 from organization.views import organization, management
@@ -35,7 +35,7 @@ urlpatterns = [
     path('status/profiles/', profiles, name="profiles"),
     path('status/orders/', orders, name="orders"),
     path('status/tests/', tests, name="tests"),
-    
+    path('chat/', include('main.urls'))
 ]
 
 if settings.DEBUG:

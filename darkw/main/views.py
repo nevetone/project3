@@ -31,3 +31,10 @@ def status(request):
     template = 'status.html'
     context = {"player":player,}
     return render(request, template, context)
+
+
+
+
+def SchowChatPage(request, person_name, room_name ):
+    template = 'chat_screen.html'
+    return render(request, template, {'room_name':room_name, 'person_name':person_name})
